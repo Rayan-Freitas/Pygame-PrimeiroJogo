@@ -10,7 +10,7 @@ pygame.display.set_caption("Primeiro Jogo")
 FPS = 60
 VELOCITY = 3
 BULLETS_VEL = 7
-MAX_BULLETS = 
+MAX_BULLETS = 3
 
 P1_HIT = pygame.USEREVENT + 1
 P2_HIT = pygame.USEREVENT + 2
@@ -36,7 +36,7 @@ SPACESHIP_P2 = pygame.transform.rotate(pygame.transform.scale(SPACESHIP_IMAGE, (
 SPACESHIP_HEIGHT, SPACESHIP_WIDTH = 55, 40
 
 LASER_IMAGE = pygame.image.load(os.path.join('Assets', 'laser.png'))
-SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'spacebg.gif')), (WIDTH, HEIGHT))
+SPACE_BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'spacebg2.gif')), (WIDTH, HEIGHT))
 SPACE_BACKGROUND2 = pygame.image.load(os.path.join('Assets', 'spacebg2.gif'))
 
 #def draw_window(a):
@@ -107,18 +107,16 @@ def draw_winner(text):
     pygame.display.update()
     pygame.time.delay(5000)
 
-    
-p1_bullets = []
-p2_bullets = []
-
-p1_health = 10
-p2_health = 10
+bullets = []
 
 def main():
     p1 = pygame.Rect(100, 200, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
     p2 = pygame.Rect(700, 200, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
-    bullets = []
+    p1_health = 10
+    p2_health = 10
+    p1_bullets = []
+    p2_bullets = []
 
     clock = pygame.time.Clock()
     run = True
@@ -134,15 +132,15 @@ def main():
                     bullet = pygame.Rect(p1.x + p1.width, p1.y + p1.height//2 - 2, 10, 5)
                     p1_bullets.append(bullet)
 
-                if event.key == pygame.K_RCTRL and len(p2_bullets) < MAX_BULLETS:
-                    bullet = pygame.Rect(p2.x + p2.y, + p2.height//2 - 2, 10, 5)
+                if event.key == pygame.K_LALT and len(p2_bullets) < MAX_BULLETS:
+                    bullet = pygame.Rect(p2.height - p2.y, WIDTH//2 - 2, 10, 5)
                     p2_bullets.append(bullet)
 
             if event.type == P2_HIT:
                 p2_health -= 1
 
 
-            if event.type == P1_HIT
+            if event.type == P1_HIT:
                 p1_health -= 1
 
 
@@ -153,7 +151,7 @@ def main():
         if p2_health <= 0: 
             winner_text = "P2 Wins!"
 
-        if winner_text != ""
+        if winner_text != "":
             draw_winner(winner_text)
             break
 
