@@ -93,13 +93,13 @@ def handle_bullets(p1_bullets, p2_bullets, p1, p2):
         elif bullet.x > WIDTH:
             p1_bullets.remove(bullet)
 
-    for bullet in p1_bullets:
+    for bullet in p2_bullets:
         bullet.x -= BULLETS_VEL
-        if p2.colliderect(bullet):
+        if p1.colliderect(bullet):
             pygame.event.post(pygame.event.Event(P1_HIT))
-            p1_bullets.remove(bullet)
+            p2_bullets.remove(bullet)
         elif bullet.x < 0:
-            p1_bullets.remove(bullet)
+            p2_bullets.remove(bullet)
 
 def draw_winner(text):
     draw_text = WINNER_FONT.render(text, 1, WHITE)
@@ -133,7 +133,7 @@ def main():
                     p1_bullets.append(bullet)
 
                 if event.key == pygame.K_LALT and len(p2_bullets) < MAX_BULLETS:
-                    bullet = pygame.Rect(p2.height - p2.y, WIDTH//2 - 2, 10, 5)
+                    bullet = pygame.Rect(p2.x, p2.y, p2.width//2 - 10, 5 ) #left: float, top: float, width: float, height: float
                     p2_bullets.append(bullet)
 
             if event.type == P2_HIT:
